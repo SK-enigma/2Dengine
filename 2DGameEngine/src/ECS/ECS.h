@@ -51,6 +51,16 @@ public:
 
 	int GetId() const;
 
+
+	void Tag(const std::string& tag);
+	bool HasTag(const std::string& tag) const;
+	void Group(const std::string& group);
+	bool BelongsToGroup(const std::string& group) const;
+
+
+
+
+
 	Entity& operator =(const Entity& other) = default;
 	bool operator ==(const Entity& other) const { return id == other.id; }
 	bool operator !=(const Entity& other) const { return id != other.id; }
@@ -158,14 +168,34 @@ class Registry {
 
 private:
 	int numEntities = 0;
+
+	//vector of component pools, each pool contains all data for a certain component
 	std::vector<std::shared_ptr<IPool>> componentPools;
 
+	//vector of component signatures per entity 
 	std::vector<Signature> entityComponentSignatures;
 	
+	//map of active systems
 	std::unordered_map<std::type_index, std::shared_ptr<System>> systems;
 
+	//set of entities that are flagged to be added or removed in the next registry update
 	std::set<Entity> entitiesToBeAdded;
 	std::set<Entity> entitiesToBeKilled;
+
+	//entity tags 
+
+	std::unordered_map<std::string, Entity> entityPerTag;
+	std::unordered_map<int, std::string> tagPerEntity;
+
+	//entity groups
+
+	std::unordered_map<std::string, std::set<Entity>> entitiesPerGroup;
+	std::unordered_map<int, std::string> groupPerEntity;
+
+
+
+
+
 
 	//list of free entity ids that were previously removed
 
@@ -183,6 +213,23 @@ public:
 
 	Entity CreateEntity();
 	void KillEntity(Entity entity);
+
+	//tag management
+
+	void TagEntity(Entity entity, const std::string& tag);
+	bool EntityHasTag(Entity entity, const std::string& tag) const;
+	Entity GetEntityByTag(const std::string& tag) const;
+	void RemoveEntityTag(Entity entity);
+
+	void GroupEntity(Entity entity, const std::string& group);
+	bool EntityBelongsToGroup(Entity entity, const std::string& group) const;
+	std::vector<Entity> GetEntitiesByGroup(const std::string& group) const;
+	void RemoveEntityGroup(Entity entity);
+
+
+
+
+
 
 	template <typename TComponent, typename ...TArgs> void AddComponent(Entity entity, TArgs&& ...args);
 	template <typename TComponent> void RemoveComponent(Entity entity);

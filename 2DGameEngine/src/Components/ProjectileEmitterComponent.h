@@ -20,9 +20,9 @@ struct ProjectileEmitterComponent {
 		this->repeatFrequency = repeatFrequency;
 		this->projectileDuration = projectileDuration;
 		this->hitPercentDamage = hitPercentDamage;
-		this->isFriendly = isFriendly;
+		this->isFriendly = isFriendly; 
 		this->lastEmissionTime = SDL_GetTicks();
-
+		
 	}
 
 

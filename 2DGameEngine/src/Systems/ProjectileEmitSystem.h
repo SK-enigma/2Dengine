@@ -44,11 +44,21 @@ public:
 					const auto transform = entity.GetComponent<TransformComponent>();
 					const auto rigidBody = entity.GetComponent<RigidBodyComponent>();
 
+					
 					glm::vec2 projectilePosition = transform.position;
 					if (entity.HasComponent<SpriteComponent>()) {
 						auto sprite = entity.GetComponent<SpriteComponent>();
-						projectilePosition += (transform.scale.x * sprite.width / 2);
-						projectilePosition += (transform.scale.y * sprite.height / 2);
+
+						int bulletWidth = 4;  
+						int bulletHeight = 4;
+
+
+						// Center the projectile on the sprite
+						projectilePosition.x += (transform.scale.x * sprite.width / 2) - (bulletWidth / 2);
+						projectilePosition.y += (transform.scale.y * sprite.height / 2) - (bulletHeight / 2);
+
+
+						
 					}
 
 
@@ -62,8 +72,8 @@ public:
 					projectileVelocity.x = projectileEmitter.projectileVelocity.x * directionX;
 					projectileVelocity.y = projectileEmitter.projectileVelocity.y * directionY;
 
-
 					Entity projectile = entity.registry->CreateEntity();
+					projectile.Group("projectiles");
 					projectile.AddComponent<TransformComponent>(projectilePosition, glm::vec2(1.0, 1.0), 0.0);
 					projectile.AddComponent<RigidBodyComponent>(projectileVelocity);
 					projectile.AddComponent<SpriteComponent>("bullet-image",4,4,4);
@@ -109,6 +119,7 @@ public:
 
 
 				Entity projectile = registry->CreateEntity();
+				projectile.Group("projectiles");
 				projectile.AddComponent<TransformComponent>(projectilePosition, glm::vec2(1.0, 1.0), 0.0);
 				projectile.AddComponent<RigidBodyComponent>(projectileEmitter.projectileVelocity);
 				projectile.AddComponent<SpriteComponent>("bullet-image", 4,4,4);
