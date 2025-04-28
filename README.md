@@ -1,60 +1,32 @@
+ FEATURES
+Entity Component System (ECS)
+– Highly modular game logic where:
+• Entity = game object (player, enemy, projectile) identified by a unique ID
+• Component = data/behavior attached to entities (e.g., PositionComponent, VelocityComponent, RenderComponent)
+• System = logic runner on entities with matching components (e.g., MovementSystem, RenderSystem)
 
+Smart Pointers
+– Modern C++ memory management with std::shared_ptr and std::unique_ptr
+• Automatic cleanup of unused components
+• No manual delete calls
+• Reduces memory leaks and dangling pointers
 
-🧩 Features
-🎮 Entity Component System (ECS)
-The core of the engine uses an ECS architecture, allowing highly modular and scalable game logic.
+SDL2 Integration
+– Core rendering and input via SDL2:
+• Window creation & management
+• Real-time keyboard handling
+• Sprite rendering & texture loading
 
-Entity: A game object identified by a unique ID (e.g., player, enemy, projectile).
+ WHAT I LEARNED
+ECS Architecture
+– Decoupling of data & logic for clean, reusable code
+– Rapid prototyping and feature expansion without tight coupling
 
-Component: Defines the data or behavior attached to entities (e.g., PositionComponent, VelocityComponent, RenderComponent).
+Smart Pointers in C++
+– Focus on game logic, not manual memory cleanup
+– Safer code with automatic resource management
 
-System: Executes logic on entities that have a matching set of components (e.g., MovementSystem, RenderSystem).
-
-This design makes it easy to add or remove behaviors without tightly coupling systems or duplicating logic.
-
-💾 Smart Pointers
-Used std::shared_ptr and std::unique_ptr to manage memory throughout the ECS, ensuring:
-
-Automatic cleanup of unused components
-
-No manual delete calls
-
-Safer and more modern memory management
-
-🖥️ SDL2 Integration
-SDL2 powers the rendering pipeline and input system:
-
-Window creation and management
-
-Real-time keyboard input
-
-Sprite rendering and texture loading
-
-🧠 What I Learned
-🧱 ECS Architecture
-I learned how to build and structure an engine where game entities are composed of components and operated on by systems. This pattern:
-
-Decouples logic from data
-
-Encourages clean and reusable code
-
-Makes it easier to prototype and expand features
-
-⚙️ Smart Pointers in C++
-Working with shared_ptr and unique_ptr taught me modern memory management:
-
-Avoid memory leaks and dangling pointers
-
-Focus more on logic than manual cleanup
-
-Build safer, more maintainable code
-
-🎮 Game Development Fundamentals
-Using SDL2 gave me experience with:
-
-Implementing a frame-limited game loop
-
-Handling real-time input events
-
-Managing textures and 2D rendering
-
+Game Development Fundamentals
+– Implemented a frame-limited game loop
+– Handled input events in real time
+– Managed textures and 2D rendering pipelines
